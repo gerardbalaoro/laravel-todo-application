@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('todos', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('order')->unique();
+            $table->integer('position');
             $table->boolean('is_done')->default(false);
             $table->softDeletes();
             $table->timestamps();

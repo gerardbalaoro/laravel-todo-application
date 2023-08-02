@@ -15,7 +15,7 @@ class CreateTodoRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:1'],
-            'order' => ['sometimes', 'integer', 'unique:todos,order'],
+            'position' => ['sometimes', 'integer', 'min:0'],
         ];
     }
 }
