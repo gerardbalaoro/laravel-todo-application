@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\ErrorCase;
+use App\Enums\ApplicationError;
 
 return [
 
@@ -14,8 +14,8 @@ return [
     |
     */
 
-    ErrorCase::VALIDATION_FAILED() => 'The data you submitted is invalid. Please check your input and try again.',
+    ApplicationError::VALIDATION_FAILED() => 'The data you submitted is invalid. Please check your input and try again.',
 
-    ErrorCase::TODO_CREATE_ALREADY_EXISTS() => 'The todo you are trying to create already exists.',
-    ErrorCase::TODO_MOVE_NEXT_FAILED() => 'Unable to save todo in this position.',
+    ApplicationError::TODO_CREATE_ALREADY_EXISTS() => 'The todo you are trying to create already exists.',
+    ApplicationError::TODO_MOVE_NEXT_FAILED() => 'Unable to save todo in this position.',
 ];

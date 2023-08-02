@@ -5,7 +5,7 @@ namespace App\Enums;
 use App\Exceptions\ApplicationException;
 use ArchTech\Enums\InvokableCases;
 
-enum ErrorCase
+enum ApplicationError
 {
     use InvokableCases;
 
@@ -34,16 +34,12 @@ enum ErrorCase
         return 422;
     }
 
-    public function exception(): ApplicationException
+    public function exception(array $meta = []): ApplicationException
     {
         $exception = new ApplicationException($this->message(), $this->name);
         $exception->status = $this->status();
+        $exception->meta = $meta;
 
         return $exception;
-    }
-
-    public function throw()
-    {
-        throw $this->exception();
     }
 }
