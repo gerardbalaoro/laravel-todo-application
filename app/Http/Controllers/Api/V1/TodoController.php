@@ -15,7 +15,9 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return TodoResource::collection(Todo::all());
+        $todos = Todo::orderBy('position')->get();
+
+        return TodoResource::collection($todos);
     }
 
     /**
