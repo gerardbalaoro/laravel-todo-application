@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Actions\CreateTodo;
+use App\Actions\UpdateTodo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\CreateTodoRequest;
+use App\Http\Requests\V1\UpdateTodoRequest;
 use App\Http\Resources\V1\TodoResource;
 use App\Models\Todo;
-use Illuminate\Http\Request;
 
 class TodoController extends Controller
 {
@@ -45,9 +46,16 @@ class TodoController extends Controller
     /**
      * Update the specified todo.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateTodoRequest $request, Todo $todo)
     {
-        //
+        $todo = (new UpdateTodo(
+            todo: $todo,
+            name: $request->validated('name'),
+            position: $request->validated('position'),
+            done: (bool) $request->validated('is_done'),
+        ))->run();
+
+        return new TodoResource($todo);
     }
 
     /**
