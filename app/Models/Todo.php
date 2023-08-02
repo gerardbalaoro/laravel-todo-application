@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $id
@@ -18,4 +19,49 @@ class Todo extends Model
     protected $fillable = [
         'name', 'position', 'is_done',
     ];
+
+    /**
+     * Place the todo in the specified position.
+     * Automatically rearrange the list.
+     *
+     * @param int $position
+     * @return Todo
+     */
+    public function place(int $position = -1): self
+    {
+        DB::transaction(function () use ($position) {
+            $current = $this->position;
+            $position = $position <= 0
+                ? static::lastPosition()
+                : min(max(1, $position), static::lastPosition());
+
+            if ($this->exists && $current && $current != $position) {
+                if ($current < $position) {
+                    static::whereBetween('position', [$current + 1, $position])
+                        ->decrement('position');
+                } else {
+                    static::whereBetween('position', [$position, $current - 1])
+                        ->increment('position');
+                }
+            } else {
+                static::where('position', '>=', $position)
+                    ->increment('position');
+            }
+
+            $this->position = $position;
+            $this->save();
+        });
+
+        return $this;
+    }
+
+    /**
+     * Return the last position in the list.
+     *
+     * @return int
+     */
+    public static function lastPosition(): int
+    {
+        return static::max('position') + 1;
+    }
 }

@@ -19,19 +19,7 @@ class CreateTodo
     public function run(): Todo
     {
         $todo = new Todo(['name' => $this->name]);
-
-        DB::transaction(function () use ($todo) {
-            $lastPosition = Todo::max('position');
-
-            if (is_numeric($this->position) && $this->position <= $lastPosition) {
-                (new IncrementTodoPositions($this->position))->run();
-                $todo->position = $this->position;
-            } else {
-                $todo->position = Todo::max('position') + 1;
-            }
-
-            $todo->save();
-        });
+        $todo->place($this->position ?: -1);
 
         return $todo;
     }
