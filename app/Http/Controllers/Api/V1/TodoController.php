@@ -61,8 +61,8 @@ class TodoController extends Controller
     /**
      * Delete the specified todo.
      */
-    public function destroy(string $id)
+    public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
     }
 }

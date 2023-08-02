@@ -59,4 +59,15 @@ class Todo extends Model
     {
         return static::max('position') + 1;
     }
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::deleting(function (self $todo) {
+            static::where('position', '>', $todo->position)
+                ->decrement('position');
+        });
+    }
 }
