@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 class ApplicationException extends Exception implements Arrayable, Responsable
 {
     public ?int $status;
+
     public array $meta = [];
 
     public function __construct(string $message, string $code)
