@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Enums\ApplicationError;
 use App\Models\Todo;
 
 /**
@@ -17,7 +18,11 @@ class IncrementTodoPositions
 
     public function run()
     {
-        Todo::where('position', '>=', $this->position)
-            ->increment('position', $this->increment);
+        try {
+            Todo::where('position', '>=', $this->position)
+                ->increment('position', $this->increment);
+        } catch (\Exception $e) {
+            throw ApplicationError::TODO_MOVE_NEXT_FAILED()->exception();
+        }
     }
 }
