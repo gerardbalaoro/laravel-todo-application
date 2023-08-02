@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
  * @property int $position
  * @property bool $is_done
  */
-class Todo extends Model
+class Task extends Model
 {
     use HasFactory;
 
@@ -21,7 +21,7 @@ class Todo extends Model
     ];
 
     /**
-     * Place the todo in the specified position.
+     * Place the task in the specified position.
      * Automatically rearrange the list.
      */
     public function place(int $position = -1): self
@@ -65,8 +65,8 @@ class Todo extends Model
      */
     protected static function booted(): void
     {
-        static::deleting(function (self $todo) {
-            static::where('position', '>', $todo->position)
+        static::deleting(function (self $task) {
+            static::where('position', '>', $task->position)
                 ->decrement('position');
         });
     }

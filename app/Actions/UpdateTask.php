@@ -2,32 +2,32 @@
 
 namespace App\Actions;
 
-use App\Models\Todo;
+use App\Models\Task;
 
 /**
  * Create new todo from fresh model instance.
  */
-class UpdateTodo
+class UpdateTask
 {
     public function __construct(
-        protected Todo $todo,
+        protected Task $task,
         protected string $name,
         protected ?int $position = null,
         protected bool $done = false,
     ) {
     }
 
-    public function run(): Todo
+    public function run(): Task
     {
-        $this->todo->name = $this->name;
-        $this->todo->is_done = $this->done;
+        $this->task->name = $this->name;
+        $this->task->is_done = $this->done;
 
         if ($this->position) {
-            $this->todo->place($this->position);
+            $this->task->place($this->position);
         }
 
-        $this->todo->save();
+        $this->task->save();
 
-        return $this->todo;
+        return $this->task;
     }
 }
