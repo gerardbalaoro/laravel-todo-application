@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Actions\CreateTodo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\CreateTodoRequest;
 use App\Http\Resources\V1\TodoResource;
@@ -25,7 +26,12 @@ class TodoController extends Controller
      */
     public function store(CreateTodoRequest $request)
     {
-        //
+        $todo = (new CreateTodo(
+            $request->validated('name'),
+            $request->validated('position'),
+        ))->run();
+
+        return new TodoResource($todo);
     }
 
     /**
@@ -35,7 +41,6 @@ class TodoController extends Controller
     {
         //
     }
-
 
     /**
      * Update the specified todo.
