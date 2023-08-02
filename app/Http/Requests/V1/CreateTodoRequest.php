@@ -14,7 +14,7 @@ class CreateTodoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:1'],
+            'name' => ['required', 'string', 'min:2'],
             'position' => ['sometimes', 'integer', 'min:0'],
         ];
     }
