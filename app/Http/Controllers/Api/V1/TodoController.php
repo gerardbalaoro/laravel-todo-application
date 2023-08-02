@@ -37,9 +37,9 @@ class TodoController extends Controller
     /**
      * Show specified todo.
      */
-    public function show(string $id)
+    public function show(Todo $todo)
     {
-        //
+        return new TodoResource($todo);
     }
 
     /**
