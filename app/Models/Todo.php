@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $content
+ * @property string $name
  * @property int $order
  * @property bool $is_done
  */
