@@ -3,7 +3,6 @@
 namespace App\Actions;
 
 use App\Models\Todo;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Create new todo from fresh model instance.

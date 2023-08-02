@@ -23,9 +23,6 @@ class Todo extends Model
     /**
      * Place the todo in the specified position.
      * Automatically rearrange the list.
-     *
-     * @param int $position
-     * @return Todo
      */
     public function place(int $position = -1): self
     {
@@ -57,8 +54,6 @@ class Todo extends Model
 
     /**
      * Return the last position in the list.
-     *
-     * @return int
      */
     public static function lastPosition(): int
     {
