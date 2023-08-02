@@ -26,8 +26,6 @@ class TodoController extends Controller
      */
     public function store(CreateTodoRequest $request)
     {
-
-        dd('STORE');
         $todo = (new CreateTodo(
             $request->validated('name'),
             $request->validated('position'),
