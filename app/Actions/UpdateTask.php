@@ -11,16 +11,20 @@ class UpdateTask
 {
     public function __construct(
         protected Task $task,
-        protected string $name,
+        protected ?string $name = null,
         protected ?int $position = null,
-        protected bool $done = false,
+        protected ?bool $done = null,
     ) {
     }
 
     public function run(): Task
     {
-        $this->task->name = $this->name;
-        $this->task->is_done = $this->done;
+        if ($this->name !== null) {
+            $this->task->name = $this->name;
+        }
+        if ($this->done !== null) {
+            $this->task->is_done = $this->done;
+        }
 
         if ($this->position) {
             $this->task->place($this->position);
