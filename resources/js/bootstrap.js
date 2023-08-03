@@ -4,10 +4,37 @@
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-import axios from 'axios';
+import axios from "axios";
 window.axios = axios;
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+window.axios.defaults.baseUrl = window.app.baseUrl;
+
+import Alpine from "alpinejs";
+window.Alpine = Alpine;
+
+window.toast = function (message, options = {}) {
+    let description = "";
+    let type = "default";
+    let position = "top-center";
+    let html = "";
+    if (typeof options.description != "undefined")
+        description = options.description;
+    if (typeof options.type != "undefined") type = options.type;
+    if (typeof options.position != "undefined") position = options.position;
+    if (typeof options.html != "undefined") html = options.html;
+    window.dispatchEvent(
+        new CustomEvent("toast-show", {
+            detail: {
+                type: type,
+                message: message,
+                description: description,
+                position: position,
+                html: html,
+            },
+        })
+    );
+};
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
